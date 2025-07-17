@@ -1,0 +1,18 @@
+#include "glove80_shared.dtsi"
+
+// enable the trackball
+&spi0 {
+    status = "okay";
+};
+
+// sending input to left hand over BLE
+&trackball_split {
+    device = <&trackball>;
+
+    // Optional
+    // input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
+};
+
+&switch_inputs {
+    status = "okay";
+};

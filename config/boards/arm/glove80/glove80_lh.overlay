@@ -1,0 +1,20 @@
+#include "glove80_shared.dtsi"
+
+// enable the trackball
+&spi0 {
+    status = "okay";
+};
+
+// for trackball on lh
+&trackball_listener {
+    status = "okay";
+};
+
+// for ble communication of trackball on rh
+&trackball_split_listener {
+    status = "okay";
+};
+
+&switch_inputs {
+    status = "okay";
+};
