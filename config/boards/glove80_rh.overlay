@@ -4,12 +4,12 @@
     /* SCLK = EXT6 = P1.00 */
     /* SDIO = EXT5 = P0.22 */
 
-    spi0_default: spi0_default {
-        psels: SPI_PSELS(1, 0, 0, 22)
+    spi0_default {
+        psels = SPI_PSELS(1, 0, 0, 22)
     };
 
-    spi0_sleep: spi0_sleep {
-        psels: SPI_PSELS(1, 0, 0, 22)
+    spi0_sleep {
+        psels = SPI_PSELS(1, 0, 0, 22)
         low-power-enable;
     };
 };

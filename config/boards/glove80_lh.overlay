@@ -3,11 +3,12 @@
 &pinctrl {
     /* SCLK = EXT6 = P1.00 */
     /* SDIO = EXT5 = P0.25 */
-    spi0_default: spi0_default {
+
+    spi0_default {
         psels = SPI_PSELS(1, 0, 0, 25);
     };
 
-    spi0_sleep: spi0_sleep {
+    spi0_sleep {
         psels = SPI_PSELS(1, 0, 0, 25);
         low-power-enable;
     };
@@ -16,14 +17,14 @@
 // enable the trackball
 &spi0 {
     status = "okay";
-    &trackball {
-        force-awake-4ms-mode;
-        /* while force-awake is acitvated, enable this mode to force sampling per 
-           4ms, where the default sampling rate is 8ms. */
-        /* NOTE: apply this mode if you need 250Hz with direct USB connection. */
-    };
 };
 
+&trackball {
+    force-awake-4ms-mode;
+    /* while force-awake is acitvated, enable this mode to force sampling per 
+        4ms, where the default sampling rate is 8ms. */
+    /* NOTE: apply this mode if you need 250Hz with direct USB connection. */
+};
 
 // for trackball on lh
 &trackball_listener {
