@@ -42,6 +42,8 @@
     };
 };
 
+#include <dt-bindings/zmk/keys.h>
+
 / {
     // regular listener if trackball is used on split central
     trackball_listener: trackball_listener {
@@ -71,16 +73,17 @@
         compatible = "gpio-keys";
         status = "disabled";
 
+        // see https://github.com/zmkfirmware/zmk/blob/main/app/include/dt-bindings/zmk/keys.h
         toggle_up {
             gpios = <&glove80_ext 1 GPIO_ACTIVE_LOW>;
             label = "Toggle Switch Up";
-            zmk,behavior = <&kp KEY_1>;
+            zmk,behavior = <&kp N1>;
         };
 
         toggle_down {
             gpios = <&glove80_ext 3 GPIO_ACTIVE_LOW>;
             label = "Toggle Switch Down";
-            zmk,behavior = <&kp KEY_2>;
+            zmk,behavior = <&kp N2>;
         };
     };
 };
