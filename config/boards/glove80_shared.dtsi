@@ -3,28 +3,12 @@
     <NRF_PSEL(SPIM_MOSI, sdio_port, sdio_pin)>, \
     <NRF_PSEL(SPIM_MISO, sdio_port, sdio_pin)>
 
-#ifdef CONFIG_BOARD_GLOVE80_RH
-    #define SPI0_PSELS SPI_PSELS(1, 0, 0, 22)
-    /* SCLK = EXT6 = P1.00 */
-    /* SDIO = EXT5 = P0.22 */
-#elif defined(CONFIG_BOARD_GLOVE80_LH)
-    #define SPI0_PSELS SPI_PSELS(1, 0, 0, 25)
-    /* SCLK = EXT6 = P1.00 */
-    /* SDIO = EXT5 = P0.25 */
-#endif
-
 &pinctrl {
     spi0_default: spi0_default {
-        group1 {
-            psels = SPI0_PSELS;
-        };
     };
 
     spi0_sleep: spi0_sleep {
-        group1 {
-            psels = SPI0_PSELS;
-            low-power-enable;
-        };
+        low-power-enable;
     };
 };
 
@@ -54,13 +38,6 @@
         /* keep the sensor awake while ZMK activity state is ACTIVE,
            fallback to normal downshift mode after ZMK goes into IDLE / SLEEP mode.
            thus, the sensor would be a `wakeup-source` */
-
-#ifdef CONFIG_ZMK_USB
-        force-awake-4ms-mode;
-#endif
-        /* while force-awake is acitvated, enable this mode to force sampling per 
-           4ms, where the default sampling rate is 8ms. */
-        /* NOTE: apply this mode if you need 250Hz with direct USB connection. */
     };
 };
 
