@@ -69,21 +69,24 @@
         device = <&trackball_split>;
     };
     
+    // alternative options to implement active low switches
+    // https://docs.nordicsemi.com/bundle/ncs-latest/page/zephyr/build/dts/api/bindings/input/gpio-keys.html?utm_source=chatgpt.com
+    // https://zmk.dev/docs/config/kscan
     switch_inputs: switch_inputs {
-        compatible = "gpio-keys";
+        compatible = "zmk,input-listener";
         status = "disabled";
 
         // see https://github.com/zmkfirmware/zmk/blob/main/app/include/dt-bindings/zmk/keys.h
         toggle_up {
             gpios = <&glove80_ext 1 GPIO_ACTIVE_LOW>;
             label = "Toggle Switch Up";
-            zmk,behavior = <&kp N1>;
+            binding = <&kp N1>;
         };
 
         toggle_down {
             gpios = <&glove80_ext 3 GPIO_ACTIVE_LOW>;
             label = "Toggle Switch Down";
-            zmk,behavior = <&kp N2>;
+            binding = <&kp N2>;
         };
     };
 };
