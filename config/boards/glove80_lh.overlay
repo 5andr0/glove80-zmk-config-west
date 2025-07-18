@@ -1,5 +1,5 @@
 #include "glove80_shared.dtsi"
-
+/*
 &pinctrl {
     /* SCLK = EXT6 = P1.00 */
     /* SDIO = EXT5 = P0.25 */
@@ -11,7 +11,7 @@
     spi0_sleep {
         psels = SPI_PSELS(1, 0, 0, 25);
     };
-};
+};*/
 
 &spi0 {
     status = "okay";
