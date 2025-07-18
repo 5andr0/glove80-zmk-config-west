@@ -36,6 +36,8 @@
     status = "okay";
 };
 
-&switch_inputs {
-    status = "okay";
+/ {
+    chosen {
+        zmk,kscan = &kscan_overlay_toggle_switch;
+    };
 };

@@ -68,25 +68,45 @@
         status = "disabled";
         device = <&trackball_split>;
     };
-    
-    // alternative options to implement active low switches
-    // https://docs.nordicsemi.com/bundle/ncs-latest/page/zephyr/build/dts/api/bindings/input/gpio-keys.html?utm_source=chatgpt.com
-    // https://zmk.dev/docs/config/kscan
-    switch_inputs: switch_inputs {
-        compatible = "zmk,input-listener";
-        status = "disabled";
 
-        // see https://github.com/zmkfirmware/zmk/blob/main/app/include/dt-bindings/zmk/keys.h
-        toggle_up {
-            gpios = <&glove80_ext 1 GPIO_ACTIVE_LOW>;
-            label = "Toggle Switch Up";
-            binding = <&kp N1>;
+    // https://zmk.dev/docs/config/kscan#direct-gpio-driver
+    // CONFIG_ZMK_KSCAN_DIRECT_POLLING=n // we don't want active pulling to save battery
+    // todo: check if it's enabled by default for glove80
+    // toggle-mode not needed, because we use a spring switch with momentary signals only
+
+    // Direct GPIO kscan for the toggle switche
+    kscan_direct: kscan_direct {
+        compatible = "zmk,kscan-gpio-direct";
+        wakeup-source;
+        
+        input-gpios = <&glove80_ext 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
+                      <&glove80_ext 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        
+        debounce-press-ms = <5>;
+        debounce-release-ms = <5>;
+    };
+
+    // Composite kscan that combines the original matrix with direct GPIO
+    kscan_overlay_toggle_switch: kscan_composite {
+        compatible = "zmk,kscan-composite";
+        wakeup-source;
+        
+        // The Glove80 has a 6x16 matrix (6 rows, 16 columns)
+        // We need to match this size
+        rows = <6>;
+        columns = <16>;
+        
+        // Include the original glove80 matrix kscan from https://github.com/moergo-sc/zmk/blob/main/app/boards/arm/glove80/glove80.dtsi
+        matrix {
+            kscan = <&kscan0>;
         };
-
-        toggle_down {
-            gpios = <&glove80_ext 3 GPIO_ACTIVE_LOW>;
-            label = "Toggle Switch Down";
-            binding = <&kp N2>;
+        
+        // Include the direct GPIO switche
+        // Position them at RC(1,1) and RC(1,2)
+        direct {
+            kscan = <&kscan_direct>;
+            row-offset = <1>;     // Row 1
+            column-offset = <1>;  // Starting at column 1
         };
     };
 };
