@@ -105,7 +105,7 @@
         direct {
             kscan = <&kscan_direct>;
             row-offset = <1>;     // Row 1
-            column-offset = <1>;  // Starting at column 1
+            column-offset = <0>;  // Starting at column 1
         };
     };
 };
