@@ -91,18 +91,17 @@
         compatible = "zmk,kscan-composite";
         wakeup-source;
         
-        // The Glove80 has a 6x16 matrix (6 rows, 16 columns)
-        // We need to match this size
+        // The Glove80 has a 6x14 matrix (6 rows, 14 columns)
         rows = <6>;
-        columns = <16>;
+        columns = <14>;
         
-        // Include the original glove80 matrix kscan from https://github.com/moergo-sc/zmk/blob/main/app/boards/arm/glove80/glove80.dtsi
+        // Include the original Glove80 matrix kscan from https://github.com/moergo-sc/zmk/blob/main/app/boards/arm/glove80/glove80.dtsi
         matrix {
             kscan = <&kscan0>;
         };
         
-        // Include the direct GPIO switche
-        // Position them at RC(1,1) and RC(1,2)
+        // Include the direct GPIO switch
+        // Position them at RC(1,1) and RC(1,2) to overlay with N1 and N2
         direct {
             kscan = <&kscan_direct>;
             row-offset = <1>;     // Row 1
