@@ -27,6 +27,22 @@ If you are looking to dig deeper into ZMK and develop new functionality, it is r
 3. Add your chosen configuration such as keymap to the `config` directory as described in [the ZMK documentation](https://zmk.dev/docs/user-setup)
 4. Commit and push your changes to your personal repo. Upon pushing it, GitHub Actions will start building a new version of your firmware with the updated keymap.
 
+### Local build with VS Code Dev Container
+More Info: https://zmk.dev/docs/development/local-toolchain/setup/container 
+
+
+⚠️ **Caution:** 
+    The following step and any future [**build commands**](https://zmk.dev/docs/development/local-toolchain/build-flash) must be executed from the command line *inside the container*.
+```bash
+west init -l "$(pwd)/config" # Initialization
+west update          # Update modules
+west zephyr-export
+west config build.cmake-args -- -DZMK_CONFIG="$(pwd)/config"
+#west config build.cmake-args -- "-DZMK_CONFIG=$(pwd)/config -DSNIPPET=zmk-usb-logging"
+west build -s zmk/app -d build/left -b glove80_lh -- -DZMK_CONFIG="$(pwd)/config"
+west build -s zmk/app -d build/right -b glove80_rh -- -DZMK_CONFIG="$(pwd)/config"
+```
+
 ## Firmware Files
 To locate your firmware files and reflash your Glove80:
 1. log into GitHub and navigate to your personal config repository you just uploaded your keymap changes to.

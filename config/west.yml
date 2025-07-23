@@ -2,15 +2,16 @@ manifest:
   remotes:
     - name: moergo-sc
       url-base: https://github.com/moergo-sc
-    - name: badjeff
-      url-base: https://github.com/badjeff
+    - name: Cy0n1x
+      url-base: https://github.com/Cy0n1x
   projects:
     - name: zmk
       remote: moergo-sc
       revision: main
       import: app/west.yml
-    - name: zmk-pmw3610-driver
-      remote: badjeff
+    - name: glove80-sidecar-module
+      remote: Cy0n1x
       revision: main
+      import: west.yml
   self:
     path: config
